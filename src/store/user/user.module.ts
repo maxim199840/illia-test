@@ -1,53 +1,42 @@
 import { CREATE_USER, REMOVE_USER, UPDATE_USER, IMPORT_USERS } from './mutations.type';
-import Vue from 'vue';
+import uuid from 'uuid/v1';
 
 interface State {
-  user: any | null;
-  errors: any;
+  users: any[];
 }
 
 const store: State = {
-  user: null,
-  errors: {},
+  users: [],
 };
 
 const getters = {
-  user(state: State) {
-    return state.user;
-  },
-  userErrors(state: State) {
-    return state.errors;
+  users(state: State) {
+    return state.users;
   },
 };
 
-const actions = {
-
-};
+const actions = {};
 
 const mutations = {
   [CREATE_USER](state: State, user: any) {
-    state.user = user;
-    state.errors = {};
+    state.users = [...state.users, { ...user, id: uuid() }];
   },
-  [UPDATE_USER](state: State, errors: any) {
-    if (errors.errors) {
-      state.errors = errors.errors;
-    } else {
-      state.errors = errors;
-    }
+  [UPDATE_USER](state: State, user: any) {
+    const userIndex = state.users.findIndex(({ id }) => id === user.id);
+    state.users = [
+      ...state.users.slice(0, userIndex),
+      user,
+      ...state.users.slice(userIndex + 1, state.users.length)];
   },
-  [REMOVE_USER](state: State, errors: any) {
-    if (errors.errors) {
-      state.errors = errors.errors;
-    } else {
-      state.errors = errors;
-    }
+  [REMOVE_USER](state: State, userId: any) {
+    state.users = state.users.filter(({ id }) => id !== userId);
   },
-  [IMPORT_USERS](state: State, errors: any) {
-    if (errors.errors) {
-      state.errors = errors.errors;
+  [IMPORT_USERS](state: State, usersJson: string) {
+    const importedUsers = JSON.parse(usersJson);
+    if (Array.isArray(importedUsers)) {
+      state.users = [...state.users, ...importedUsers.map((user) => ({ ...user, id: uuid() }))];
     } else {
-      state.errors = errors;
+      state.users = [...state.users, { ...importedUsers, id: uuid() }];
     }
   },
 };
