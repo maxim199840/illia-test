@@ -23,27 +23,28 @@
     computed: { ...mapGetters(['users']) },
     data() {
       return {
-        columns: [{
-          title: 'Name',
-          dataIndex: 'name',
-          width: '30%',
-          scopedSlots: { customRender: 'name' },
-        }, {
-          title: 'Surname',
-          dataIndex: 'surname',
-        }, {
-          title: 'Email',
-          dataIndex: 'email',
-        },{
-          title: 'Phone',
-          dataIndex: 'phone',
-        }, {
-          title: 'Operation',
-          dataIndex: 'operation',
-          scopedSlots: { customRender: 'operation' },
-        }],
-      }
-    }
+        columns: [
+          {
+            title: 'Name',
+            dataIndex: 'name',
+            width: '30%',
+            scopedSlots: { customRender: 'name' },
+          }, {
+            title: 'Surname',
+            dataIndex: 'surname',
+          }, {
+            title: 'Email',
+            dataIndex: 'email',
+          }, {
+            title: 'Phone',
+            dataIndex: 'phone',
+          }, {
+            title: 'Operation',
+            dataIndex: 'operation',
+            scopedSlots: { customRender: 'operation' },
+          }],
+      };
+    },
   });
 
 </script>
