@@ -70,7 +70,6 @@
     },
     components: {},
     mounted() {
-      console.log(this.users);
       if (this.user) {
         const user = this.users.find(({ id }) => id === this.user);
         user && this.form.setFieldsValue({
@@ -90,6 +89,8 @@
             this.user ?
               this.$store.commit(UPDATE_USER, { ...formFields, id: this.user }) :
               this.$store.commit(CREATE_USER, formFields);
+            this.$message.success('Saved!');
+            this.$router.push('users');
           }
         });
       },
