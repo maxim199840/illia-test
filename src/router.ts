@@ -11,6 +11,7 @@ export default new Router({
   routes: [
     {
       path: '/user/:user?',
+      props: true,
       name: 'user',
       component: User,
     },
