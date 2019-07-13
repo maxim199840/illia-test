@@ -90,7 +90,7 @@
               this.$store.commit(UPDATE_USER, { ...formFields, id: this.user }) :
               this.$store.commit(CREATE_USER, formFields);
             this.$message.success('Saved!');
-            this.$router.push('users');
+            this.$router.push({ name: 'users' });
           }
         });
       },
