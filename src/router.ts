@@ -5,7 +5,7 @@ import Users from './views/Users.vue';
 
 Vue.use(Router);
 
-export default new Router({
+export const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -21,4 +21,13 @@ export default new Router({
       component: Users,
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (router.resolve(to.path).route.name) {
+    next();
+  } else {
+    return next({ name: 'users' });
+  }
+  next();
 });
